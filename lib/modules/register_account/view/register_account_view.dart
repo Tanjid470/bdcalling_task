@@ -28,29 +28,40 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 52),
-            const Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Welcome to',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'HindSiliguri',
-                        fontWeight: FontWeight.bold),
+            const SizedBox(height: 50),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  }, child: const Icon(Icons.arrow_back_ios_new)),
+                const Expanded(
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Welcome to',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontFamily: 'HindSiliguri',
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          ' BdCalling IT',
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.blueAccent,
+                              fontFamily: 'HindSiliguri',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    ' BdCalling IT',
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.blueAccent,
-                        fontFamily: 'HindSiliguri',
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+           
             const SizedBox(
               height: 10.0,
             ),
@@ -224,11 +235,13 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: controller.text.isEmpty
+              ? Colors.grey.shade100
+              : Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: controller.text.isEmpty
-                ? Colors.grey.shade300
+                ? Colors.grey.shade400
                 : Colors.blueAccent,
           )),
       child: TextField(
@@ -247,7 +260,9 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
           hintText: hintText,
           prefixIcon: Icon(
             icon,
-            color: Colors.grey.shade400,
+            color: controller.text.isEmpty
+                ?Colors.grey.shade400
+            : Colors.blueAccent,
           ),
           hintStyle: TextStyle(
               fontFamily: 'HindSiliguri',

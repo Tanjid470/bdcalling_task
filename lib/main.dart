@@ -3,6 +3,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import 'config/font_dynamic.dart';
+import 'modules/login/view/login_screen_view.dart';
 import 'modules/register_account/view/register_account_view.dart';
 
 void main() async{
@@ -17,8 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: const RegisterAccountScreen(),
+      //home: const RegisterAccountScreen(),
+      home: const LoginView(),
+
       builder: FlutterSmartDialog.init(
         toastBuilder: (String msg) => Center(
           child: Container(

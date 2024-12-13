@@ -181,7 +181,7 @@ class _LoginViewState extends State<LoginView> {
         return loginController.saveButtonEnableFlag.value
             ? InkWell(
                 onTap: () {
-                  //registerAccountController.registerAccount();
+                  loginController.loginAccount();
                 },
                 child: Container(
                     decoration: BoxDecoration(

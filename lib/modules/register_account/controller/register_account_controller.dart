@@ -158,18 +158,16 @@ class RegisterAccountController extends GetxController {
     };
     try {
       var response = await httpLog.post(Uri.parse(url),
-          body: jsonEncode(bodyData));
+          body: bodyData);
       final map = jsonDecode(utf8.decode(response.bodyBytes));
 
       if (response.statusCode == 200) {
-       // ProfileModel model = ProfileModel.fromJson(map['data']);
         Get.snackbar(map['status'], map['message'],
             duration: const Duration(seconds: 3),
             backgroundColor: const Color(0xffC9EFDE),
             colorText: Colors.black,
             icon: const Icon(Icons.offline_pin_outlined,color: Color(0xff14452F),),
             snackPosition: SnackPosition.TOP);
-       // return model;
       }
       else {
         Get.snackbar(map['status'], map['message'],
@@ -178,7 +176,6 @@ class RegisterAccountController extends GetxController {
             colorText: Colors.black,
             icon: const Icon(Icons.error_outline,color: Color(0xffEF4444),),
             snackPosition: SnackPosition.TOP);
-        return null;
       }
     }
     catch (exception) {
@@ -189,7 +186,6 @@ class RegisterAccountController extends GetxController {
           icon: const Icon(Icons.wifi_tethering_error,color: Color(0xffEF4444),),
           snackPosition: SnackPosition.TOP);
     }
-    return null;
   }
 
 }

@@ -129,8 +129,9 @@ class _HomeViewState extends State<HomeView> {
         ),
         body: Builder(
           builder: (context) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(children: [
+              padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 5),
+              child: Column(
+                  children: [
                 SizedBox(height: ResponsiveScale.of(context).hp(5)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,17 +200,17 @@ class _HomeViewState extends State<HomeView> {
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            color:  homeController.titleController.text.isEmpty
+                            color: homeController.titleController.text.isEmpty
                                 ? Colors.transparent
                                 : Colors.white,
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
-                              color:  homeController.titleController.text.isEmpty
+                              color: homeController.titleController.text.isEmpty
                                   ? Colors.grey.shade400
                                   : Colors.blueAccent,
                             )),
                         child: TextField(
-                          controller:  homeController.titleController,
+                          controller: homeController.titleController,
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
                               fontSize: 16,
@@ -218,9 +219,10 @@ class _HomeViewState extends State<HomeView> {
                               fontWeight: FontWeight.bold),
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                            border: const OutlineInputBorder(borderSide: BorderSide.none),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 0),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none),
                             hintText: 'Title',
                             hintStyle: TextStyle(
                                 fontFamily: 'HindSiliguri',
@@ -229,13 +231,11 @@ class _HomeViewState extends State<HomeView> {
                             //hintStyle: const TextStyle(color: Colors.orangeAccent),
                           ),
                           onChanged: (value) {
-
                             setState(() {});
                           },
                         ),
                       ),
                       SizedBox(height: ResponsiveScale.of(context).hp(1)),
-
                       TextField(
                         controller: homeController.descriptionController,
                         maxLines: 5,
@@ -248,25 +248,27 @@ class _HomeViewState extends State<HomeView> {
                           ),
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5), // Optional rounded corners
+                            borderRadius: BorderRadius.circular(
+                                5), // Optional rounded corners
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(
-                              color: Colors.blueAccent, // Change to desired focused color
+                              color: Colors
+                                  .blueAccent, // Change to desired focused color
                               width: 1.0,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: BorderSide(
-                              color: Colors.grey.shade400, // Change to desired enabled color
+                              color: Colors.grey
+                                  .shade400, // Change to desired enabled color
                               width: 1,
                             ),
                           ),
                         ),
                       ),
-
                       SizedBox(height: ResponsiveScale.of(context).hp(.5)),
                       Align(
                         alignment: Alignment.bottomRight,
@@ -276,7 +278,7 @@ class _HomeViewState extends State<HomeView> {
                           },
                           child: Container(
                               padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   color: Colors.blueAccent,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5))),
@@ -292,6 +294,93 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    "All Task",
+                    style: TextStyle(
+                        fontSize: TextSize.font22(context),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blueAccent),
+                  ),
+                ),
+                Obx(() {
+                  return  Expanded(
+                      child: homeController.isLoading.value
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: homeController.allTaskList?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(homeController.allTaskList?[index].title ?? "",
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            homeController.deleteTask(homeController.allTaskList?[index].sId.toString() ?? "");
+                                          },
+                                          child: const Icon(Icons.delete_forever_outlined,color:Colors.red)
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(homeController.allTaskList?[index].description ?? "",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                  SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.email, size: 16, color: Colors.blue),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        homeController.allTaskList?[index].creatorEmail ?? "",
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 16),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Created : ${formatDate(homeController.allTaskList?[index].createdAt)}",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey.shade600),
+                                      ),
+                                      Text("Updated : ${formatDate(homeController.allTaskList?[index].updatedAt)}",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.yellow.shade800),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                  );
+                },)
               ])),
         ));
   }

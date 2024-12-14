@@ -4,6 +4,9 @@ import 'package:bdcalling_task/core/const/http_logger.dart';
 import 'package:bdcalling_task/core/helper/helpers.dart';
 import 'package:bdcalling_task/core/utils/app_url.dart';
 import 'package:bdcalling_task/global/network_check.dart';
+import 'package:bdcalling_task/main.dart';
+import 'package:bdcalling_task/modules/login/model/login_user_model.dart';
+import 'package:bdcalling_task/route/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -61,6 +64,9 @@ class LoginController extends GetxController{
   Map<String, String> headerForLogin = {
     'content-type': 'application/json'
   };
+
+  late LoginUserModel loginUserData ;
+
   Future postLoginAccount() async {
     try {
       String url = AppUrl.postLoginAccount;
@@ -74,14 +80,16 @@ class LoginController extends GetxController{
       );
       final map = jsonDecode(utf8.decode(response.bodyBytes));
       if (response.statusCode == 200) {
-
+        loginUserData = loginUserDataFromJson(utf8.decode(response.bodyBytes));
         Get.snackbar(map['status'], map['message'],
             duration: const Duration(seconds: 3),
             backgroundColor: const Color(0xffC9EFDE),
             colorText: Colors.black,
             icon: const Icon(Icons.offline_pin_outlined,color: Color(0xff14452F),),
             snackPosition: SnackPosition.TOP);
-
+        preferences.setInt('initScreen', 1);
+        preferences.setString('access_token', loginUserData.data?.token ?? "");
+        Get.toNamed(Routes.homeScreen);
       }
       else {
         Get.snackbar(map['status'], map['message'],

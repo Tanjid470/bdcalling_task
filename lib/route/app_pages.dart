@@ -1,5 +1,6 @@
 
 import 'package:bdcalling_task/main.dart';
+import 'package:bdcalling_task/modules/home/bindings/profile_data_binding.dart';
 import 'package:bdcalling_task/modules/home/view/home_view.dart';
 import 'package:bdcalling_task/modules/login/view/login_screen_view.dart';
 import 'package:flutter/animation.dart';
@@ -19,6 +20,7 @@ class AppPages{
       page: () => const HomeView(),
       transition: Transition.leftToRight,
       curve: Curves.fastOutSlowIn,
+      binding: ProfileDataBinding()
     ),
     GetPage(
       name:_Paths.loginScreen,

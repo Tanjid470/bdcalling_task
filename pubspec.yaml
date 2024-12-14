@@ -42,6 +42,7 @@ dependencies:
   http: ^1.2.2
   pretty_http_logger: ^1.0.4
   file_picker: ^5.2.3
+  intl: ^0.20.1
 
 dev_dependencies:
   flutter_test:

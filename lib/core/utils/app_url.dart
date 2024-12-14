@@ -8,5 +8,7 @@ class AppUrl {
   static String postRegisterAccount = "$baseUrlWithApiVersion/user/register";
   static String postLoginAccount = "$baseUrlWithApiVersion/user/login";
   static String postActiveAccount = "$baseUrlWithApiVersion/user/activate-user";
+  static String getMyProfile = "$baseUrlWithApiVersion/user/my-profile";
+  static String postCreateTask = "$baseUrlWithApiVersion/task/create-task";
 
 }

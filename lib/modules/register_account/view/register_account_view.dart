@@ -28,7 +28,7 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
+            SizedBox(height: ResponsiveScale.of(context).hp(5)),
             Row(
               children: [
                 InkWell(

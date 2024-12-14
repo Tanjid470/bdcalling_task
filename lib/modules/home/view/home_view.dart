@@ -140,9 +140,6 @@ class _HomeViewState extends State<HomeView> {
                         InkWell(
                           onTap: () {
                             Scaffold.of(context).openDrawer();
-                            print(preferences
-                                .getString('access_token')
-                                .toString());
                           },
                           child: const CircleAvatar(
                             radius: 20,
@@ -175,42 +172,121 @@ class _HomeViewState extends State<HomeView> {
                         ))
                   ],
                 ),
-                SizedBox(height: ResponsiveScale.of(context).hp(1)),
+                SizedBox(height: ResponsiveScale.of(context).hp(2)),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.blueAccent.withOpacity(0.05),
-                    borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
+                      color: Colors.blueAccent.withOpacity(0.05),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.blueAccent.shade100,
+                            blurStyle: BlurStyle.outer,
+                            blurRadius: 2,
+                            offset: Offset(1, 3))
+                      ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextField(
-                        controller: homeController.titleController,
-                        decoration: const InputDecoration(
-                          labelText: "title",
-                          alignLabelWithHint: true,
+                      Text(
+                        "Create Task",
+                        style: TextStyle(
+                            fontSize: TextSize.font20(context),
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black),
+                      ),
+                      SizedBox(height: ResponsiveScale.of(context).hp(1)),
+                      Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color:  homeController.titleController.text.isEmpty
+                                ? Colors.transparent
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color:  homeController.titleController.text.isEmpty
+                                  ? Colors.grey.shade400
+                                  : Colors.blueAccent,
+                            )),
+                        child: TextField(
+                          controller:  homeController.titleController,
+                          textInputAction: TextInputAction.next,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'HindSiliguri',
+                              // color: HexColor('#7A7A7A'),
+                              fontWeight: FontWeight.bold),
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                            border: const OutlineInputBorder(borderSide: BorderSide.none),
+                            hintText: 'Title',
+                            hintStyle: TextStyle(
+                                fontFamily: 'HindSiliguri',
+                                color: Colors.grey.shade400,
+                                fontSize: 16),
+                            //hintStyle: const TextStyle(color: Colors.orangeAccent),
+                          ),
+                          onChanged: (value) {
 
-                          border: OutlineInputBorder(),
+                            setState(() {});
+                          },
                         ),
                       ),
                       SizedBox(height: ResponsiveScale.of(context).hp(1)),
+
                       TextField(
                         controller: homeController.descriptionController,
                         maxLines: 5,
-                        decoration: const InputDecoration(
-                          labelText: "description........",
+                        decoration: InputDecoration(
+                          labelText: "Description..",
+                          labelStyle: TextStyle(
+                            fontFamily: 'HindSiliguri',
+                            color: Colors.grey.shade400,
+                            fontSize: 16,
+                          ),
                           alignLabelWithHint: true,
-                          border: OutlineInputBorder(),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5), // Optional rounded corners
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: const BorderSide(
+                              color: Colors.blueAccent, // Change to desired focused color
+                              width: 1.0,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400, // Change to desired enabled color
+                              width: 1,
+                            ),
+                          ),
                         ),
                       ),
+
+                      SizedBox(height: ResponsiveScale.of(context).hp(.5)),
                       Align(
                         alignment: Alignment.bottomRight,
-                        child: ElevatedButton(
-                          onPressed: () {
+                        child: InkWell(
+                          onTap: () {
                             homeController.createTask();
                           },
-                          child: const Text("Post"),
+                          child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.blueAccent,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    fontSize: TextSize.font16(context),
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              )),
                         ),
                       ),
                     ],

@@ -1,12 +1,10 @@
 import 'package:bdcalling_task/main.dart';
 import 'package:bdcalling_task/modules/assignment_one/assignment_one_view.dart';
+import 'package:bdcalling_task/modules/assignment_three/view/assignment_three_view.dart';
 import 'package:bdcalling_task/modules/assignment_two/view/assignment_two_view.dart';
 import 'package:bdcalling_task/modules/home/view/home_view.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-
-
-
 part 'app_routes.dart';
 class AppPages{
   AppPages._();
@@ -30,6 +28,12 @@ class AppPages{
     GetPage(
       name:_Paths.assignmentTwoView,
       page: () => const AssignmentTwoView(),
+      transition: Transition.rightToLeft,
+      curve: Curves.fastOutSlowIn,
+    ),
+    GetPage(
+      name:_Paths.assignmentThreeView,
+      page: () =>  AssignmentThreeView(),
       transition: Transition.rightToLeft,
       curve: Curves.fastOutSlowIn,
     ),

@@ -1,20 +1,21 @@
+
 import 'package:bdcalling_task/modules/home/view/home_view.dart';
 import 'package:bdcalling_task/route/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'config/font_dynamic.dart';
+import 'modules/assignment_three/model/data_fetch_model.dart';
 
 
-
-late SharedPreferences preferences;
 int? isInitScreen;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  preferences = await SharedPreferences.getInstance();
-  isInitScreen = preferences.getInt('initScreen');
+  await Hive.initFlutter();
+  Hive.registerAdapter(DataModelAdapter());
+
   runApp(const MyApp());
 }
 

@@ -35,7 +35,9 @@ class _HomeViewState extends State<HomeView> {
                 Get.toNamed(Routes.assignmentTwoView);
               }, text: 'Assignment 2',),
               verticalGap(context,1),
-              CustomButton(onTap: () {  }, text: 'Assignment 3',),
+              CustomButton(onTap: () {
+                Get.toNamed(Routes.assignmentThreeView);
+              }, text: 'Assignment 3',),
             ],
           ),
         ),
